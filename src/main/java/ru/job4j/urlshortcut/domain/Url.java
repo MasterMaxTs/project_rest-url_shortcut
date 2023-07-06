@@ -11,8 +11,8 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "codes")
-public class Code {
+@Table(name = "url_codes")
+public class Url {
 
     /**
      * Идентификатор кода

@@ -29,7 +29,7 @@ public class Site {
      */
     @OneToOne
     @JoinColumn(name = "code_id")
-    private Code code;
+    private Url code;
 
     /**
      * Учётные данные для аутентификации сайта в приложении

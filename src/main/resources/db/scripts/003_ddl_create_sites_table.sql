@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS sites
     code_id       INT NOT NULL,
     CONSTRAINT sites_id_pk PRIMARY KEY (id),
     CONSTRAINT sites_cred_id_fk FOREIGN KEY (credential_id) REFERENCES credentials (id),
-    CONSTRAINT sites_code_id_fk FOREIGN KEY (code_id) REFERENCES codes (id)
+    CONSTRAINT sites_code_id_fk FOREIGN KEY (code_id) REFERENCES url_codes (id)
 );
 
 
