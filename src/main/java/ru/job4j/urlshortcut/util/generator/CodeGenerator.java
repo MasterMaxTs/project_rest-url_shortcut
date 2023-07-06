@@ -1,70 +1,49 @@
 package ru.job4j.urlshortcut.util.generator;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import lombok.AllArgsConstructor;
 
+import java.util.Arrays;
 
 /**
- * Утилитарный класс - генератор коллекции кодов для URL сайтов
+ * Абстракный класс - генератор кодов
  */
-public class CodeGenerator {
+@AllArgsConstructor
+public abstract class CodeGenerator {
 
     /**
-     * Константа - требуемая длина уникального кода для URL
+     * Требуемая длина кодовой последовательности символов
      */
-    private static final int REQUIRED_CODE_LENGTH = 6;
+    private int requiredCodeLength;
 
     /**
-     * Константа - начальный символ в виде Unicode Number для генерации кода
+     * Начальный символ (нижний диапазон) в значении юникод для генерации
+     * кодовой последовательности
      */
-    private static final int START_UNICODE_NUMBER_FOR_CODE = 65;
+    private int startUnicodeNumber;
 
     /**
-     * Константа - конечный символ в виде Unicode Number для генерации кода
+     * Конечный символ (верхний диапазон) в значении юникод для генерации
+     * кодовой последовательности
      */
-    private static final int END_UNICODE_NUMBER_FOR_CODE = 122;
+    private int endUnicodeNumber;
 
     /**
-     * Массив запрещённых символов в виде Unicode Number
+     * Массив символов в значении юникод (из диапазона), неучаствующих в
+     * генерации кодовой последовательности
      */
-    private static final int[] EXCLUDED_UNICODE_NUMBERS = {91, 92, 93, 94, 95, 96};
+    private int[] excludedUnicodeNumbers;
 
     /**
-     * Метод генирации уникальных кодов для URL сайтов
-     * @return коллекцию уникальных кодов для URL сайтов
+     * Рандомно генерирует строковую последовательность символов
+     * @return строковую последовательность символов в виде кода
      */
-    public static Set<String> generateCodes() {
-        Set<String> codes = new HashSet<>();
-        while (codes.size() != CredentialGenerator.REQUIRED_COUNT) {
-            codes.add(
-                    generate(
-                            START_UNICODE_NUMBER_FOR_CODE,
-                            END_UNICODE_NUMBER_FOR_CODE,
-                            REQUIRED_CODE_LENGTH
-                    )
-            );
-        }
-        return codes;
-    }
-
-    /**
-     * Метод генерирует случайную последовательность символов из
-     * заданного диапазона символов, исключая запрещённые, в виде Unicode Number
-     * @param fromUnicodeNumber начальный символ в виде Unicode Number для генерации
-     * @param toUnicodeNumber конечный символ в виде Unicode Number для генерации
-     * @param requiredLength требуемая длина генерируемой последовательности
-     * символов
-     * @return сгенерированную случайную последовательность символов
-     */
-    public static String generate(int fromUnicodeNumber, int toUnicodeNumber,
-                                  int requiredLength) {
+    public String generate() {
         StringBuilder sb = new StringBuilder();
-        while (sb.length() != requiredLength) {
+        while (sb.length() != requiredCodeLength) {
             int unicodeNumber =
-                    (int) (fromUnicodeNumber + Math.round(
-                            (toUnicodeNumber - fromUnicodeNumber) * Math.random()));
-            if (!checkOnExcludedSymbol(unicodeNumber)) {
+                    (int) (startUnicodeNumber + Math.round(
+                            (endUnicodeNumber - startUnicodeNumber) * Math.random()));
+            if (!checkOnExcludedSymbol(unicodeNumber, excludedUnicodeNumbers)) {
                 sb.append((char) unicodeNumber);
             }
         }
@@ -72,12 +51,17 @@ public class CodeGenerator {
     }
 
     /**
-     * Делает проверку, находится ли сгенерированный символ в списке запрещённых
-     * @param unicodeNumber символ в виде Unicode Number на входе
+     * Выполняет проверку, попадает ли текущий символ из заданного диапазона
+     * символов для генерируемой последовательности в список запрещённых
+     * символов
+     * @param unicodeNumber проверяемый текущий символ в значении юникод
+     * @param excludedUnicodeNumbers список запрещённых символов (из диапазона)
+     * при генерации кодовой последовательности
      * @return результат проверки в виде boolean
      */
-    public static boolean checkOnExcludedSymbol(int unicodeNumber) {
-        return Arrays.stream(EXCLUDED_UNICODE_NUMBERS)
+    private boolean checkOnExcludedSymbol(int unicodeNumber,
+                                          int[] excludedUnicodeNumbers) {
+        return Arrays.stream(excludedUnicodeNumbers)
                 .filter(num -> num == unicodeNumber)
                 .findAny()
                 .isPresent();
