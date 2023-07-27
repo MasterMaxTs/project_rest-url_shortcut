@@ -31,6 +31,9 @@ public class UrlServiceImpl implements UrlService {
      */
     private final SiteService siteService;
 
+    /**
+     * Зависимость от сервиса статистических данных сконвертированных URL
+     */
     private final StatisticService statisticService;
 
     /**
@@ -88,16 +91,6 @@ public class UrlServiceImpl implements UrlService {
             statisticService.increaseCounter(urlInDb.getId());
         }
         return rsl;
-    }
-
-    @Override
-    public Optional<Url> findUrlByUrlName(String urlName) {
-        return store.findUrlByUrlName(urlName);
-    }
-
-    @Override
-    public Optional<String> findCodeByUrl(String url) {
-        return store.findCodeByUrl(url);
     }
 
     @Override

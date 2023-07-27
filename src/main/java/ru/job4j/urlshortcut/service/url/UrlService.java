@@ -1,6 +1,5 @@
 package ru.job4j.urlshortcut.service.url;
 
-import org.springframework.data.repository.query.Param;
 import ru.job4j.urlshortcut.domain.Url;
 
 import java.util.Optional;
@@ -23,16 +22,6 @@ public interface UrlService {
      * @return строковое значение кода для URL
      */
     String convert(String requestUrl);
-
-
-    Optional<Url> findUrlByUrlName(@Param("url") String urlName);
-
-    /**
-     * Выполняет поиск кода для URL сайта в хранилище
-     * @param url URL сайта на входе
-     * @return результат поиска в виде Optional
-     */
-    Optional<String> findCodeByUrl(String url);
 
     /**
      * Выполняет поиск URL сайта в хранилище по его коду

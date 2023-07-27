@@ -44,6 +44,7 @@ public class CredentialServiceImpl implements CredentialService {
         this.passwordCodeGenerator = passwordCodeGenerator;
     }
 
+    @Transactional
     @Override
     public Credential save(Credential credential) {
         store.save(credential);
@@ -64,11 +65,13 @@ public class CredentialServiceImpl implements CredentialService {
         return new Credential(login, password);
     }
 
+    @Transactional
     @Override
     public boolean findByLogin(String login) {
         return store.findByLogin(login).isPresent();
     }
 
+    @Transactional
     @Override
     public boolean findByPassword(String password) {
         return store.findByLogin(password).isPresent();

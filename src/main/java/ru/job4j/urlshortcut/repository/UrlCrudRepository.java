@@ -12,6 +12,11 @@ import java.util.Optional;
  */
 public interface UrlCrudRepository extends CrudRepository<Url, Integer> {
 
+    /**
+     * Выполняет поиск URL по имени
+     * @param urlName имя ссылки URL
+     * @return результат поиска в виде Optional
+     */
     @Query("from Url where url = :url")
     Optional<Url> findUrlByUrlName(@Param("url") String urlName);
     /**
