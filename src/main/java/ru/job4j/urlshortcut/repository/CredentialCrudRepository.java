@@ -6,10 +6,11 @@ import ru.job4j.urlshortcut.domain.Credential;
 import java.util.Optional;
 
 /**
- * Хранилище Учётных данных
+ * Хранилище Регистрационных данных сайтов
  */
 public interface CredentialCrudRepository
                                 extends CrudRepository<Credential, Integer> {
+
     /**
      * Выполняет поиск учётных данных в хранилище по логину
      * @param login логин

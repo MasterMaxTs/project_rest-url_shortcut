@@ -16,12 +16,12 @@ import java.util.Optional;
 public interface SiteCrudRepository extends CrudRepository<Site, Integer> {
 
     /**
-     * Выполняет поиск сайта в хранилище по URL
-     * @param url URL сайта
+     * Выполняет поиск сайта в хранилище по доменному имени
+     * @param site доменное имя сайта
      * @return результат поиска в виде Optional
      */
-    @Query("from Site where url = :url")
-    Optional<Site> findByUrl(@Param("url") String url);
+    @Query("from Site where site = :site")
+    Optional<Site> findSiteByDomainName(@Param("site") String site);
 
     /**
      * Получает список всех зарегистрированных сайтов из хранилища

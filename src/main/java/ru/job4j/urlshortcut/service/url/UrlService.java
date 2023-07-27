@@ -1,24 +1,50 @@
 package ru.job4j.urlshortcut.service.url;
 
+import org.springframework.data.repository.query.Param;
 import ru.job4j.urlshortcut.domain.Url;
 
+import java.util.Optional;
+
 /**
- * Сервис Уникальных кодов для URl сайтов
+ * Сервис Ссылок URL
  */
 public interface UrlService {
 
     /**
      * Сохраняет модель в хранилище
-     * @param url модель данных Уникальный код для URL сайта
+     * @param url URL сайта
      * @return модель Уникальный код для URL сайта с проинициализированным id
      */
     Url save(Url url);
 
     /**
-     * Выполняет поиск модели в хранилище по URL коду
-     * @param urlCode URL код
-     * @return результат поиска в виде boolean
+     * Конвертирует URL в кодовое представление
+     * @param requestUrl строковое значение URL на входе
+     * @return строковое значение кода для URL
      */
-    boolean findByUrlCode(String urlCode);
+    String convert(String requestUrl);
 
+
+    Optional<Url> findUrlByUrlName(@Param("url") String urlName);
+
+    /**
+     * Выполняет поиск кода для URL сайта в хранилище
+     * @param url URL сайта на входе
+     * @return результат поиска в виде Optional
+     */
+    Optional<String> findCodeByUrl(String url);
+
+    /**
+     * Выполняет поиск URL сайта в хранилище по его коду
+     * @param code код URL сайта на входе
+     * @return результат поиска в виде Optional
+     */
+    Optional<String> findUrlByCode(String code);
+
+    /**
+     * Проверяет наличие Url кода в хранилище
+     * @param urlCode проверяемый Url код на входе
+     * @return результат проверки в виде boolean
+     */
+    boolean existsByCode(String urlCode);
 }
