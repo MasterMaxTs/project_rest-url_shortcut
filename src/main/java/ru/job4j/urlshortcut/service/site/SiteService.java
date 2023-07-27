@@ -2,17 +2,19 @@ package ru.job4j.urlshortcut.service.site;
 
 import ru.job4j.urlshortcut.domain.Site;
 
+import java.util.Optional;
+
 /**
- * Сервис зарегистрированных Сайтов
+ * Сервис сайтов
  */
 public interface SiteService {
 
     /**
-     * Проверяет регистрацию сайта, исходя из информации в хранилище сайтов
-     * @param url URL сайта
-     * @return результат проверки в виде boolean
+     * Выполняет поиск сайта в хранилище по доменному имени
+     * @param domain доменное имя сайта
+     * @return результат поиска в виде Optional
      */
-    boolean isRegister(String url);
+    Optional<Site> findSiteByDomainName(String domain);
 
     /**
      * Сохраняет модель в хранилище
@@ -20,8 +22,4 @@ public interface SiteService {
      * @return модель Сайт с проинициализированным id
      */
     Site save(Site site);
-
-    boolean update(Site site);
-
-    boolean deleteByUrl(String url);
 }

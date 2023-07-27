@@ -8,8 +8,13 @@ import ru.job4j.urlshortcut.domain.Credential;
 public interface CredentialService {
 
     /**
+     * Рандомно генерирует аутентификационные данные 
+     * @return объект Registration
+     */
+    Credential generateCredentials();
+
+    /**
      * Сохраняет модель в хранилище
-     * @param credential модель данных Учётные данные
      * @return модель учётных данные с проинициализированным id
      */
     Credential save(Credential credential);

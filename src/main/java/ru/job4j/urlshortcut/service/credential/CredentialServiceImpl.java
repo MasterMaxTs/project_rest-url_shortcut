@@ -35,29 +35,33 @@ public class CredentialServiceImpl implements CredentialService {
      * @param passwordCodeGenerator внедрение зависимости от генератора кода
      * для password
      */
-    public CredentialServiceImpl(CredentialCrudRepository store,
-                                 @Qualifier("loginCodeGenerator") CodeGenerator loginCodeGenerator,
-                                 @Qualifier("passwordCodeGenerator") CodeGenerator passwordCodeGenerator) {
+    public CredentialServiceImpl(
+            CredentialCrudRepository store,
+            @Qualifier("loginCodeGenerator") CodeGenerator loginCodeGenerator,
+            @Qualifier("passwordCodeGenerator") CodeGenerator passwordCodeGenerator) {
         this.store = store;
         this.loginCodeGenerator = loginCodeGenerator;
         this.passwordCodeGenerator = passwordCodeGenerator;
     }
 
     @Override
-    @Transactional
     public Credential save(Credential credential) {
+        store.save(credential);
+        return credential;
+    }
+
+    @Transactional
+    @Override
+    public Credential generateCredentials() {
         String login = loginCodeGenerator.generate();
         String password = passwordCodeGenerator.generate();
         while (findByLogin(login)) {
             login = loginCodeGenerator.generate();
         }
         while (findByPassword(password)) {
-            password = loginCodeGenerator.generate();
+            password = passwordCodeGenerator.generate();
         }
-        credential.setLogin(login);
-        credential.setPassword(password);
-        store.save(credential);
-        return credential;
+        return new Credential(login, password);
     }
 
     @Override
