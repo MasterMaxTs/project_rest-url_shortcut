@@ -3,7 +3,7 @@ package ru.job4j.urlshortcut.util.generator;
 /**
  * Генератор кодовой последовательности
  */
-public class SimpleCodeGenerator extends CodeGenerator {
+public final class FactoryCodeGenerator extends CodeGenerator {
 
     /**
      * Конструктор
@@ -16,10 +16,10 @@ public class SimpleCodeGenerator extends CodeGenerator {
      * @param excludedUnicodeNumbers массив символов в значении юникод
      * (из диапазона), неучаствующих в генерации кодовой последовательности
      */
-    public SimpleCodeGenerator(int requiredCodeLength,
-                               int startUnicodeNumber,
-                               int endUnicodeNumber,
-                               int[] excludedUnicodeNumbers) {
+    private FactoryCodeGenerator(int requiredCodeLength,
+                                 int startUnicodeNumber,
+                                 int endUnicodeNumber,
+                                 int[] excludedUnicodeNumbers) {
         super(requiredCodeLength,
                 startUnicodeNumber,
                 endUnicodeNumber,
@@ -38,11 +38,11 @@ public class SimpleCodeGenerator extends CodeGenerator {
      * (из диапазона), неучаствующих в генерации кодовой последовательности
      * @return проинициализированный экземпляр генератора кода
      */
-    public static SimpleCodeGenerator getCodeGenerator(int requiredCodeLength,
-                                                       int startUnicodeNumber,
-                                                       int endUnicodeNumber,
-                                                       int[] excludedUnicodeNumbers) {
-        return new SimpleCodeGenerator(requiredCodeLength,
+    public static FactoryCodeGenerator getCodeGenerator(int requiredCodeLength,
+                                                        int startUnicodeNumber,
+                                                        int endUnicodeNumber,
+                                                        int[] excludedUnicodeNumbers) {
+        return new FactoryCodeGenerator(requiredCodeLength,
                                         startUnicodeNumber,
                                         endUnicodeNumber,
                                         excludedUnicodeNumbers);

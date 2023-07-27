@@ -1,10 +1,10 @@
-package ru.job4j.urlshortcut.config;
+package ru.job4j.urlshortcut.config.generator;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.job4j.urlshortcut.util.generator.CodeGenerator;
-import ru.job4j.urlshortcut.util.generator.SimpleCodeGenerator;
+import ru.job4j.urlshortcut.util.generator.FactoryCodeGenerator;
 
 import java.util.Arrays;
 
@@ -34,7 +34,7 @@ public class CodeGeneratorConfig {
             @Value("${url.code.excluded.unicode.numbers}") String[] excludedUnicodeNumbers) {
         int[] excludedNumbers =
                 Arrays.stream(excludedUnicodeNumbers).mapToInt(Integer::parseInt).toArray();
-        return SimpleCodeGenerator.getCodeGenerator(Integer.parseInt(codeLength),
+        return FactoryCodeGenerator.getCodeGenerator(Integer.parseInt(codeLength),
                                                     Integer.parseInt(startUnicodeNumber),
                                                     Integer.parseInt(endUnicodeNumber),
                                                     excludedNumbers);
@@ -60,7 +60,7 @@ public class CodeGeneratorConfig {
             @Value("${login.code.excluded.unicode.numbers}") String[] excludedUnicodeNumbers) {
         int[] excludedNumbers =
                 Arrays.stream(excludedUnicodeNumbers).mapToInt(Integer::parseInt).toArray();
-        return SimpleCodeGenerator.getCodeGenerator(Integer.parseInt(codeLength),
+        return FactoryCodeGenerator.getCodeGenerator(Integer.parseInt(codeLength),
                                                     Integer.parseInt(startUnicodeNumber),
                                                     Integer.parseInt(endUnicodeNumber),
                                                     excludedNumbers);
@@ -88,7 +88,7 @@ public class CodeGeneratorConfig {
             @Value("${password.code.excluded.unicode.numbers}") String[] excludedUnicodeNumbers) {
         int[] excludedNumbers =
                 Arrays.stream(excludedUnicodeNumbers).mapToInt(Integer::parseInt).toArray();
-        return SimpleCodeGenerator.getCodeGenerator(Integer.parseInt(codeLength),
+        return FactoryCodeGenerator.getCodeGenerator(Integer.parseInt(codeLength),
                                                     Integer.parseInt(startUnicodeNumber),
                                                     Integer.parseInt(endUnicodeNumber),
                                                     excludedNumbers);

@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS credentials
     CONSTRAINT credentials_password_uniq UNIQUE (password)
 );
 
-comment on table credentials is 'Учётные данные';
-comment on column credentials.id is 'Идентификатор учётных данных';
+comment on table credentials is 'Регистрационные данные для сайтов';
+comment on column credentials.id is 'Идентификатор регистрационных данных - первичный ключ';
 comment on column credentials.login is 'Уникальный логин';
 comment on column credentials.password is 'Уникальный пароль';
