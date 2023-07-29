@@ -56,8 +56,8 @@ public class UrlServiceImpl implements UrlService {
         this.codeGenerator = codeGenerator;
     }
 
-    @Override
     @Transactional
+    @Override
     public Url save(Url url) {
         String code = codeGenerator.generate();
         while (existsByCode(code)) {
@@ -68,6 +68,7 @@ public class UrlServiceImpl implements UrlService {
         return url;
     }
 
+    @Transactional
     @Override
     public String convert(String requestUrl) {
         String rsl;
@@ -76,8 +77,9 @@ public class UrlServiceImpl implements UrlService {
         Optional<Site> optionalSite = siteService.findSiteByDomainName(domainName);
         if (optionalSite.isEmpty()) {
             throw new NoSuchElementException(
-                    "You need to register the site domain name in the application!"
-            );
+                    String.format("Domain name is not found! "
+                                    + "You need to register the site domain name '%s' "
+                                            + "in the application!", domainName));
         }
         Optional<Url> optionalUrl = store.findUrlByUrlName(requestUrl);
         if (optionalUrl.isEmpty()) {
