@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 /**
  * Модель данных - Учётные данные при регистрации сайта в приложении
@@ -24,11 +25,13 @@ public class Credential {
     /**
      * Уникальный логин
      */
+    @NotBlank(message = "login must be non null!")
     private String login;
 
     /**
      * Уникальный пароль
      */
+    @NotBlank(message = "password must be non null!")
     private String password;
 
     /**
