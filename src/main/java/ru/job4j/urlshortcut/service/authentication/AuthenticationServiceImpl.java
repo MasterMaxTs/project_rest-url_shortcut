@@ -7,9 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.urlshortcut.domain.Credential;
-import ru.job4j.urlshortcut.util.jwt.JwtToken;
-
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Реализация сервиса Аутентификации
@@ -28,18 +25,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      * в заголовок в ответе
      * @param authManager AuthenticationManager
      * @param credentials объект Registration
-     * @param response HttpServletResponse
      */
     @Transactional
     @Override
-    public void authenticate(AuthenticationManager authManager,
-                             Credential credentials,
-                             HttpServletResponse response) {
-        Authentication authResult = authenticationManager.authenticate(
+    public Authentication authenticate(AuthenticationManager authManager,
+                             Credential credentials) {
+        return authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         credentials.getLogin(),
                         credentials.getPassword()
                 ));
-        JwtToken.generateToken(authResult, response);
     }
 }
