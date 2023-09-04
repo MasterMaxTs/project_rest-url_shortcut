@@ -23,8 +23,6 @@ public class Statistic {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int total;
-
     /**
      * Ссылка в виде URL
      */
@@ -33,7 +31,12 @@ public class Statistic {
     private Url url;
 
     /**
-     * Контсруктор
+     * Счётчик запросов на конвертацию ссылки URL
+     */
+    private int total;
+
+    /**
+     * Конструктор
      * @param url URL
      */
     public Statistic(Url url) {

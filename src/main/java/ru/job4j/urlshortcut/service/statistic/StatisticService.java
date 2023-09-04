@@ -28,4 +28,9 @@ public interface StatisticService {
      * @param urlId идентификатор ссылки
      */
     void increaseCounter(int urlId);
+
+    /**
+     * Удаляет все статистические данные из хранилища
+     */
+    void deleteAll();
 }

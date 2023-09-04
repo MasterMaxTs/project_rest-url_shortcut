@@ -74,6 +74,6 @@ public class CredentialServiceImpl implements CredentialService {
     @Transactional
     @Override
     public boolean findByPassword(String password) {
-        return store.findByLogin(password).isPresent();
+        return store.findByPassword(password).isPresent();
     }
 }

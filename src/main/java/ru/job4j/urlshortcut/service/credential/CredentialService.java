@@ -9,12 +9,13 @@ public interface CredentialService {
 
     /**
      * Рандомно генерирует аутентификационные данные 
-     * @return объект Registration
+     * @return объект Credential
      */
     Credential generateCredentials();
 
     /**
      * Сохраняет модель в хранилище
+     * @param credential учётные данные на входе
      * @return модель учётных данные с проинициализированным id
      */
     Credential save(Credential credential);

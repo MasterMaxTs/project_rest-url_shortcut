@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Класс используется для инициализации статических констант, используемых
- * в классах одноимённого пакета
+ * в классах, отвечающих за безопасность приложения
  */
 @Component
 public class JwtConstants {

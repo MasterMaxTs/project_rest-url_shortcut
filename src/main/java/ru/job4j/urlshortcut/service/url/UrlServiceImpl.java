@@ -10,7 +10,7 @@ import ru.job4j.urlshortcut.repository.UrlCrudRepository;
 import ru.job4j.urlshortcut.service.site.SiteService;
 import ru.job4j.urlshortcut.service.statistic.StatisticService;
 import ru.job4j.urlshortcut.util.generator.CodeGenerator;
-import ru.job4j.urlshortcut.util.parser.HttpUrlParser;
+import ru.job4j.urlshortcut.util.parser.UrlParser;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -44,6 +44,8 @@ public class UrlServiceImpl implements UrlService {
     /**
      * Конструктор
      * @param store внедрение зависимость от хранилища кодов для URL сайтов
+     * @param siteService внедрение зависимости от сервиса сайтов
+     * @param statisticService внедрение зависимости от сервиса статистических данных
      * @param codeGenerator внедрение зависимости от генератора кода для URL сайта
      */
     public UrlServiceImpl(UrlCrudRepository store,
@@ -73,31 +75,38 @@ public class UrlServiceImpl implements UrlService {
     public String convert(String requestUrl) {
         String rsl;
         Url urlInDb;
-        String domainName = HttpUrlParser.parseDomainNameFromUrl(requestUrl);
-        Optional<Site> optionalSite = siteService.findSiteByDomainName(domainName);
-        if (optionalSite.isEmpty()) {
-            throw new NoSuchElementException(
-                    String.format("Domain name is not found! "
-                                    + "You need to register the site domain name '%s' "
-                                            + "in the application!", domainName));
-        }
-        Optional<Url> optionalUrl = store.findUrlByUrlName(requestUrl);
-        if (optionalUrl.isEmpty()) {
-            urlInDb = save(new Url(requestUrl, optionalSite.get()));
-            statisticService.save(new Statistic(urlInDb));
-            statisticService.increaseCounter(urlInDb.getId());
-            rsl = urlInDb.getCode();
-        } else {
+        String domainName = UrlParser.parseDomainNameFromUrl(requestUrl);
+        Site siteInDb = siteService.findSiteByDomainName(domainName);
+        Optional<Url> optionalUrl = findUrlByUrlName(requestUrl);
+        if (optionalUrl.isPresent()) {
             urlInDb = optionalUrl.get();
             rsl = urlInDb.getCode();
-            statisticService.increaseCounter(urlInDb.getId());
+        } else {
+            urlInDb = save(new Url(requestUrl, siteInDb));
+            rsl = urlInDb.getCode();
+            statisticService.save(new Statistic(urlInDb));
         }
+        statisticService.increaseCounter(urlInDb.getId());
         return rsl;
     }
 
     @Override
-    public Optional<String> findUrlByCode(String code) {
-        return store.findUrlByCode(code);
+    public Optional<Url> findUrlByUrlName(String urlName) {
+        return store.findUrlByUrlName(urlName);
+    }
+
+    @Override
+    public Url findUrlByCode(String code) {
+        Optional<Url> optionalUrl = store.findUrlByCode(code);
+        if (optionalUrl.isEmpty()) {
+            throw new NoSuchElementException(
+                    String.format(
+                            "URL was not found in the database."
+                                    + " Specify url code '%s'?!",
+                            code
+                    ));
+        }
+        return optionalUrl.get();
     }
 
     @Override

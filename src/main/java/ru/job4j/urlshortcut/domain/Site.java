@@ -35,7 +35,7 @@ public class Site {
     /**
      * Регистрационные данные для сайта в приложении
      */
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "credential_id")
     private Credential credential;
 
@@ -43,14 +43,14 @@ public class Site {
      * Список ссылок, закреплённых за доменным именем сайта
      */
     @OneToMany(
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.REMOVE,
             fetch = FetchType.LAZY,
             mappedBy = "site"
     )
     private List<Url> urls;
 
     /**
-     * Контсруктор
+     * Конструктор
      * @param site доменное имя сайта
      * @param registration флаг регистрации сайта в приложении
      * @param credential объект в виде регистрационных данных

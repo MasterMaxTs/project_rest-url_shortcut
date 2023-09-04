@@ -19,7 +19,7 @@ public interface StatisticCrudRepository
      * @param domainName доменное имя сайта на входе
      * @return список статистических данных
      */
-    @Query("from Statistic s where s.url.site.site = :domainName")
+    @Query("from Statistic where url.site.site = :domainName")
     List<Statistic> getStatistic(@Param("domainName") String domainName);
 
     /**
@@ -33,4 +33,11 @@ public interface StatisticCrudRepository
             + "where url_id = :urlId",
            nativeQuery = true)
     void increaseCounter(@Param("urlId") int urlId);
+
+    /**
+     * Удаляет все статистические данные из хранилища
+     */
+    @Modifying
+    @Query("delete from Statistic")
+    void deleteAll();
 }

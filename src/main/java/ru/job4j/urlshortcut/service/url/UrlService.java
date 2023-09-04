@@ -24,11 +24,19 @@ public interface UrlService {
     String convert(String requestUrl);
 
     /**
-     * Выполняет поиск URL сайта в хранилище по его коду
-     * @param code код URL сайта на входе
+     * Выполняет поиск URL по имени
+     * @param urlName имя URL сайта на входе
      * @return результат поиска в виде Optional
      */
-    Optional<String> findUrlByCode(String code);
+    Optional<Url> findUrlByUrlName(String urlName);
+
+    /**
+     * Выполняет поиск URL сайта в хранилище по его коду
+     * @param code код URL сайта на входе
+     * @return результат поиска с возможным выбросом исключения,
+     * если искомый URL сайта не найден
+     */
+    Url findUrlByCode(String code);
 
     /**
      * Проверяет наличие Url кода в хранилище

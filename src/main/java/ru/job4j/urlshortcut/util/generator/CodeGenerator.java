@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import java.util.Arrays;
 
 /**
- * Абстракный класс - генератор кодов
+ * Абстракный класс - текстовый генератор кодов
  */
 @AllArgsConstructor
 public abstract class CodeGenerator {
