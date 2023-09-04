@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.urlshortcut.domain.Site;
-import ru.job4j.urlshortcut.dto.RequestSiteDto;
-import ru.job4j.urlshortcut.dto.ResponseRegistrationDto;
+import ru.job4j.urlshortcut.dto.request.RequestSiteDto;
+import ru.job4j.urlshortcut.dto.response.ResponseRegistrationDto;
 import ru.job4j.urlshortcut.dto.error.RegistrationErrorDto;
 import ru.job4j.urlshortcut.service.registration.RegistrationService;
 

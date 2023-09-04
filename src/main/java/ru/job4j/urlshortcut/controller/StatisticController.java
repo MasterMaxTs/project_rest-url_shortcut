@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.job4j.urlshortcut.domain.Statistic;
-import ru.job4j.urlshortcut.dto.RequestSiteDto;
+import ru.job4j.urlshortcut.dto.request.RequestSiteDto;
+import ru.job4j.urlshortcut.dto.response.ResponseStatisticDto;
 import ru.job4j.urlshortcut.service.statistic.StatisticService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -39,10 +39,10 @@ public class StatisticController {
         String domainName = siteDto.getSite();
         List<Statistic> statistics = statisticService.getStatistic(domainName);
         return ResponseEntity.ok().body(
-                statistics
+                    statistics
                         .stream()
-                        .map(st -> Map.of(st.getUrl().getUrl(), st.getTotal()))
-                        .collect(Collectors.toList())
-        );
+                        .map(st -> new ResponseStatisticDto(
+                                st.getUrl().getUrl(), st.getTotal())
+                        ).collect(Collectors.toList()));
     }
 }
