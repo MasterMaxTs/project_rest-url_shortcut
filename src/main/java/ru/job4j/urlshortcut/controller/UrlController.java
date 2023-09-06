@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-import ru.job4j.urlshortcut.dto.RequestUrlDto;
+import ru.job4j.urlshortcut.domain.Url;
+import ru.job4j.urlshortcut.dto.request.RequestUrlDto;
 import ru.job4j.urlshortcut.service.url.UrlService;
 
 import javax.validation.Valid;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Контроллер Ссылок URL
@@ -45,15 +44,10 @@ public class UrlController {
      */
     @GetMapping("redirect/{code}")
     public ResponseEntity<?> redirect(@PathVariable("code") String code) {
-        Optional<String> optionalUrl = urlService.findUrlByCode(code);
-        if (optionalUrl.isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Url is not found! Clarify your code.");
-        }
+        Url urlInDb = urlService.findUrlByCode(code);
         return ResponseEntity.status(HttpStatus.FOUND)
                 .header("HTTP CODE", String.valueOf(302))
-                .header("REDIRECT", optionalUrl.get())
+                .header("REDIRECT", urlInDb.getUrl())
                 .build();
     }
 }
