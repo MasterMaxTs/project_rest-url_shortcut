@@ -1,7 +1,7 @@
 package ru.job4j.urlshortcut.util.parser;
 
 /**
- * Класс - Http, Https URL-парсер
+ * Утилитарный класс Парсер ссылок URL протоколов Http, Https
  */
 public class HttpUrlParser {
 
@@ -11,10 +11,8 @@ public class HttpUrlParser {
      * @return распарсенное доменное имя сайта
      */
     public static String parseDomainNameFromUrl(String url) {
-        String prefix = url.startsWith("http:")
-                ? url.substring(0, 8)
-                : url.substring(0, 9);
-        String path = url.substring(prefix.length() - 1);
-        return path.split("/")[0];
+        String protocolName = url.split(":")[0];
+        String resource = url.substring(protocolName.length() + 3);
+        return resource.split("/")[0];
     }
 }

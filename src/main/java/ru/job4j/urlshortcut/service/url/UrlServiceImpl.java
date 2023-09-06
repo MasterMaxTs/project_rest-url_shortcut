@@ -10,7 +10,7 @@ import ru.job4j.urlshortcut.repository.UrlCrudRepository;
 import ru.job4j.urlshortcut.service.site.SiteService;
 import ru.job4j.urlshortcut.service.statistic.StatisticService;
 import ru.job4j.urlshortcut.util.generator.CodeGenerator;
-import ru.job4j.urlshortcut.util.parser.UrlParser;
+import ru.job4j.urlshortcut.util.parser.HttpUrlParser;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -75,7 +75,7 @@ public class UrlServiceImpl implements UrlService {
     public String convert(String requestUrl) {
         String rsl;
         Url urlInDb;
-        String domainName = UrlParser.parseDomainNameFromUrl(requestUrl);
+        String domainName = HttpUrlParser.parseDomainNameFromUrl(requestUrl);
         Site siteInDb = siteService.findSiteByDomainName(domainName);
         Optional<Url> optionalUrl = findUrlByUrlName(requestUrl);
         if (optionalUrl.isPresent()) {
