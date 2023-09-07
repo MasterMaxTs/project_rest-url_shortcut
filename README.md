@@ -70,9 +70,10 @@ ___
 ### Стек технологий
 
 - Java 11
-- Spring boot v.2.7.13.
-- Spring-data-jpa v.2.7.13
-- Spring-security v.5.7.9
+- Spring-boot-starter-web v.2.7.13.
+- Spring-boot-starter-data-jpa v.2.7.13
+- Spring-boot-starter-security v.3.1.0
+- Spring-boot-starter-validation v.2.7.13
 - Lombok v.1.18.28.
 - Java-JWT v.4.4.0
 - Liquibase-core v.4.22.0
@@ -80,7 +81,8 @@ ___
 
 
 - Тестирование:
-  - Spring boot test v.2.7.13.
+  - Junit5
+  - Spring-boot-starter-test v.2.7.13
   - БД: h2database v.2.1.214
 
 <br>
