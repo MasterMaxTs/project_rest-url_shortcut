@@ -16,6 +16,7 @@
 
 	<name>url_shortcut</name>
 	<description>Link replacement service</description>
+	<packaging>war</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

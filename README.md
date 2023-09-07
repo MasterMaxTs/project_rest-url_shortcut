@@ -1,8 +1,9 @@
 # job4j_url_shortcut
+#### Сервис коротких ссылок
 
 [![Build Status](https://app.travis-ci.com/MasterMaxTs/project_rest-url_shortcut.svg?branch=master)](https://app.travis-ci.com/MasterMaxTs/project_rest-url_shortcut)
 
-### Это проект по разработке сервиса, заменяющего URL ссылки, доступного в браузере.
+### Это проект по разработке сервиса, заменяющего URL ссылки на короткие, доступного в браузере.
 #### Сервис работает через REST API.
 
 ___
@@ -15,7 +16,7 @@ ___
  - каждому сайту выдается пара пароль и логин;
  - чтобы зарегистрировать сайт в систему нужно отправить запрос:
 
-    - URL: POST /registration  с  телом JSON объекта: {site : "job4j.ru"};
+    - URL: POST /registration  с  телом JSON объекта: {site : "domain name"};
 
  - ответ от сервера: 
     - {registration : true/false, login: УНИКАЛЬНЫЙ_КОД, password : УНИКАЛЬНЫЙ_КОД};
@@ -24,12 +25,12 @@ ___
 <br>
 2. <b>Авторизация.</b>
 
- - Авторизацию сделать через JWT;
- - пользователь отправляет POST запрос с login и password и получает ключ.
+ - Авторизацию производится через JWT;
+ - пользователь отправляет POST запрос с login и password и получает ключ KEY.
 
  - Этот ключ отправляется пользователем в запросе в блоке HEAD:
 
-    - Authorization: Bearer e25d31c5-db66-4cf2-85d4-8faa8c544ad6
+    - Authorization: Bearer KEY
 
 <br>    
 3. <b>Регистрация URL.</b>
@@ -58,16 +59,13 @@ ___
 
  - В сервисе считается количество вызовов каждого адреса;
  - увеличение счетчика вызовов в базе данных;
- - по сайту можно получить статистку всех адресов и количество вызовов этого адреса.
+ - по сайту можно получить статистику всех адресов и количество вызовов этого адреса.
  - Описание вызовов:
      - GET /statistic:
        - ответ от сервера JSON:{ {url : URL, total : 0},
 {url : "https://job4j.ru/profile/exercise/106/task-view/532", total : 103} } 
-       
+
          
-  &emsp;&emsp;&nbsp
-
-
 ---
 ### Стек технологий
 
@@ -102,12 +100,12 @@ ___
 1. Установить СУБД PostgreSQL
 
 
-2. Создать базу данных с именем accidents:<br>
+2. Создать базу данных с именем url_shortcuter:<br>
    ```create database url_shortcuter;```
 
 
 3. Скачать файлы проекта с github по ссылке и разархивировать в выбранную директорию:<br>
-   [https://github.com/MasterMaxTs/project_accidents/archive](https://github.com/MasterMaxTs/project_accidents/archive/refs/heads/master.zip)
+   [https://github.com/MasterMaxTs/project_rest-url_shortcut/archive](https://github.com/MasterMaxTs/project_rest-url_shortcut/archive/refs/heads/master.zip)
 
 
 4. Перейти в директорию проекта, открыть командную строку.</br>
@@ -116,25 +114,110 @@ ___
      - ```java -jar target/urlshortcut-1.0.war```
 
  - Для <ins>последующего</ins> запуска приложения выполнять команду:
-     - ```java -jar target/urlshortcut--1.0.war```
+     - ```java -jar target/urlshortcut-1.0.war```
      
 
 
 ---
 ### Закрытие проекта
-Закройте окно командной строки либо:
-1. Запишите id процесса (PID) в логах из командной строки:
-   ![img.png](img/stop_app_pid.png)
-2. Через диспетчер устройств выполните завершение процесса c этим PID
-
+ - Закройте окно командной строки
 
 <br>
 
 ---
 ### Взаимодействие с приложением
 
+1. Вид вкладки Postman взаимодействия с приложением при успешной регистрации нового сайта
+
+![img.png](img/Register-success.JPG)
+
+<br>
+
+2. Вид вкладки Postman взаимодействия с приложением при не успешной регистрации сайта
+
+![img.png](img/Register-fail.JPG)
+
+<br>
+
+3. Вид вкладки Postman взаимодействия с приложением при регистрации сайта c некорректно указанным доменным именем
+
+![img.png](img/Register-with-incorrect-domain-name-fail.JPG)
+
+<br>
+
+
+4. Вид вкладки Postman взаимодействия с приложением при успешной аутентификации
+
+![img.png](img/login-success.JPG)
+
+<br>
+
+5. Вид вкладки Postman взаимодействия с приложением при не успешной аутентификации
+
+![img.png](img/login-fail.JPG)
+
+<br>
+
+6. Вид вкладки Postman взаимодействия с приложением при успешном получении короткой URL ссылки
+
+![img.png](img/convert-success.JPG)
+
+<br>
+
+7. Вид вкладки Postman взаимодействия с приложением при получении короткой URL ссылки для не зарегистрированного сайта
+
+![img.png](img/convert-fail.JPG)
+
+<br>
+
+8. Вид вкладки Postman взаимодействия с приложением при получении короткой URL ссылки, когда указано некорретное название URL
+
+![img.png](img/convert-with-incorrect-url-name-fail.JPG)
+
+<br>
+
+9. Вид вкладки Postman взаимодействия с приложением при запросе переадресации по корректной короткой URL ссылке
+
+![img.png](img/redirect-success.JPG)
+
+<br>
+
+10. Вид вкладки Postman взаимодействия с приложением при запросе переадресации по не корректной короткой URL ссылке
+
+![img.png](img/redirect-fail.JPG)
+
+<br>
+
+11. Вид вкладки Postman взаимодействия с приложением при запросе статистических данных для зарегистрированного в приложении сайта
+
+![img.png](img/statistic-success.JPG)
+
+<br>
+
+12. Вид вкладки Postman взаимодействия с приложением при запросе статистических данных для не зарегистрированного в приложении сайта
+
+![img.png](img/statistic-fail.JPG)
+
+<br>
 
 ---
+### Особенности технической реализации учебного проекта
+
+<br>
+
+ - В проекте ипользуются три текстовых генератора случайной кодовой последовательности
+символов:
+    - генератор логина;
+    - генератор пароля;
+    - генератор кода ссылки URL;
+ 
+    <br>
+ - каждый генератор имеет свою собственную настройку на основе данных в файле
+конфигурации приложения <classpath: application-prod.properties>
+
+<br>
+
+___
 ### Контакты
 * email: max86ts@gmail.com
 * telegram: matsurkanov
