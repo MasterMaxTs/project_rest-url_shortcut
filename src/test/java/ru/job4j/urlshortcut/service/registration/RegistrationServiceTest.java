@@ -4,11 +4,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 import ru.job4j.urlshortcut.UrlShortcutApplication;
 import ru.job4j.urlshortcut.domain.Site;
-import ru.job4j.urlshortcut.service.credential.CredentialService;
 import ru.job4j.urlshortcut.service.site.SiteService;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,13 +34,7 @@ class RegistrationServiceTest {
      */
     @Autowired
     private SiteService siteService;
-
-    /**
-     * Внедрение зависимости от сервиса Учётных данных
-     */
-    @Autowired
-    private CredentialService credentialService;
-
+    
     /**
      * Очистка всех данных из таблиц после выполнения каждого теста
      */
@@ -68,7 +60,8 @@ class RegistrationServiceTest {
     @Test
     void whenUnSuccessRegisterInAppThenGetException() {
         registrationService.register(DOMAIN_NAME);
-        assertThrows(DataIntegrityViolationException.class,
-                () -> registrationService.register(DOMAIN_NAME));
+        Site site = registrationService.register(DOMAIN_NAME);
+        assertFalse(site.isRegistration());
+        assertNull(site.getCredential());
     }
 }

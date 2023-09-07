@@ -1,6 +1,5 @@
 package ru.job4j.urlshortcut.controller;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -15,7 +14,6 @@ import ru.job4j.urlshortcut.domain.Site;
 import ru.job4j.urlshortcut.service.registration.RegistrationService;
 
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -87,7 +85,7 @@ class RegistrationControllerTest {
     void whenFailSignUpThenStatusIs400AndVerifyJsonContent() throws Exception {
         String errorMessage = "The site with this domain name is already "
                 + "registered in the application.";
-        doThrow(ConstraintViolationException.class)
+        doReturn(new Site())
                 .when(registrationService).register(DOMAIN_NAME);
         this.mockMvc.perform(
                         MockMvcRequestBuilders

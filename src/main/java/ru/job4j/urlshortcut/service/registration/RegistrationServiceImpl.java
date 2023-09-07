@@ -8,6 +8,8 @@ import ru.job4j.urlshortcut.domain.Site;
 import ru.job4j.urlshortcut.service.credential.CredentialService;
 import ru.job4j.urlshortcut.service.site.SiteService;
 
+import java.util.NoSuchElementException;
+
 /**
  * Реализация сервиса Регистрации сайта в приложении
  */
@@ -32,13 +34,19 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public Site register(String domainName) {
-        Credential credentials = credentialService.generateCredentials();
-        String rawPassword = credentials.getPassword();
-        credentials.setPassword(passwordEncoder.encode(credentials.getPassword()));
-        Credential credentialInDb = credentialService.save(credentials);
-        Site site = siteService.save(
-                new Site(domainName, true, credentialInDb));
-        site.getCredential().setPassword(rawPassword);
-        return site;
+        Site rsl = new Site();
+        try {
+            siteService.findSiteByDomainName(domainName);
+        } catch (NoSuchElementException ex) {
+            Credential credentials = credentialService.generateCredentials();
+            String rawPassword = credentials.getPassword();
+            credentials.setPassword(passwordEncoder.encode(credentials.getPassword()));
+            Credential credentialInDb = credentialService.save(credentials);
+            Site site = siteService.save(
+                    new Site(domainName, true, credentialInDb));
+            site.getCredential().setPassword(rawPassword);
+            rsl = site;
+        }
+        return rsl;
     }
 }

@@ -39,15 +39,13 @@ public class UrlController {
     /**
      * Выполняет переадресацию по кодовому значению ссылки
      * @param code кодовое значение ссылки на входе
-     * @return объект ResponseEntity со статусом 302 с заголовками:
-     * HTTP CODE, REDIRECT
+     * @return объект ResponseEntity со статусом 302 с заголовком Location
      */
     @GetMapping("redirect/{code}")
     public ResponseEntity<?> redirect(@PathVariable("code") String code) {
         Url urlInDb = urlService.findUrlByCode(code);
         return ResponseEntity.status(HttpStatus.FOUND)
-                .header("HTTP CODE", String.valueOf(302))
-                .header("REDIRECT", urlInDb.getUrl())
+                .header("Location", urlInDb.getUrl())
                 .build();
     }
 }

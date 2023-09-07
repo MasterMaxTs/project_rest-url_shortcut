@@ -2,7 +2,7 @@ package ru.job4j.urlshortcut.util.parser;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Класс используется для выполнения модульных тестов утилитарного

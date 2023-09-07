@@ -8,9 +8,8 @@ import org.springframework.test.context.ActiveProfiles;
 import ru.job4j.urlshortcut.UrlShortcutApplication;
 import ru.job4j.urlshortcut.domain.Credential;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Класс используется для выполнения модульных тестов сервиса Учётных данных

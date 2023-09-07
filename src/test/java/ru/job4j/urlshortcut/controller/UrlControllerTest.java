@@ -122,8 +122,7 @@ class UrlControllerTest {
                         .get("/redirect/" + URL_CODE)
         ).andDo(print()
         ).andExpect(status().is3xxRedirection()
-        ).andExpect(header().string("HTTP CODE", "302")
-        ).andExpect(header().string("REDIRECT", url.getUrl()));
+        ).andExpect(header().string("Location", url.getUrl()));
     }
 
     /**
