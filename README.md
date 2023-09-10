@@ -1,8 +1,6 @@
 # job4j_url_shortcut
 #### Сервис коротких ссылок
 
-[![Build Status](https://app.travis-ci.com/MasterMaxTs/project_rest-url_shortcut.svg?branch=master)](https://app.travis-ci.com/MasterMaxTs/project_rest-url_shortcut)
-
 ### Это проект по разработке сервиса, заменяющего URL ссылки на короткие, доступного в браузере.
 #### Сервис работает через REST API.
 
