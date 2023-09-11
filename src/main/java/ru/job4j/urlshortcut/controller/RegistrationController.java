@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.job4j.urlshortcut.domain.Site;
 import ru.job4j.urlshortcut.dto.error.RegistrationErrorDto;
 import ru.job4j.urlshortcut.dto.request.RequestSiteDto;
-import ru.job4j.urlshortcut.dto.response.ResponseRegistrationDto;
+import ru.job4j.urlshortcut.mapper.RegistrationConverter;
 import ru.job4j.urlshortcut.service.registration.RegistrationService;
 
 import javax.validation.Valid;
@@ -31,6 +31,11 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     /**
+     * Зависимость от RegistrationConverter
+     */
+    private final RegistrationConverter converter;
+
+    /**
      * Выполняет регистрацию сайта в приложении по его доменному имени
      * @param siteDto объект RegistrationSiteDto на входе
      * @return объект ResponseEntity со статусом 201 и телом виде
@@ -46,10 +51,7 @@ public class RegistrationController {
         Site site = registrationService.register(domainName);
         return site.isRegistration()
                 ? ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new ResponseRegistrationDto(
-                            site.isRegistration(),
-                            site.getCredential().getLogin(),
-                            site.getCredential().getPassword()))
+                    .body(converter.convertToDto(site))
                 : ResponseEntity.badRequest()
                     .body(new RegistrationErrorDto(errorMessage));
     }

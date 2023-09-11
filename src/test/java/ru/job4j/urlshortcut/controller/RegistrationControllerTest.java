@@ -2,15 +2,19 @@ package ru.job4j.urlshortcut.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import ru.job4j.urlshortcut.UrlShortcutApplication;
 import ru.job4j.urlshortcut.domain.Credential;
 import ru.job4j.urlshortcut.domain.Site;
+import ru.job4j.urlshortcut.mapper.RegistrationConverter;
 import ru.job4j.urlshortcut.service.registration.RegistrationService;
 
 import static org.mockito.Mockito.doReturn;
@@ -22,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Класс используется для выполнения модульных тестов
  * контроллера Регистрации
  */
-@WebMvcTest(controllers = RegistrationController.class)
+@SpringBootTest(classes = UrlShortcutApplication.class)
 @ActiveProfiles(value = "test")
 class RegistrationControllerTest {
 
@@ -43,12 +47,18 @@ class RegistrationControllerTest {
     private RegistrationService registrationService;
 
     /**
+     * Внедрение зависимости от RegistrationConverter
+     */
+    @Autowired
+    private RegistrationConverter converter;
+
+    /**
      * Инициализация объекта MockMvc до выполнения каждого теста
      */
     @BeforeEach
     void whenSetUpThenInitMockMvc() {
         mockMvc = MockMvcBuilders.standaloneSetup(
-                    new RegistrationController(registrationService)
+                    new RegistrationController(registrationService, converter)
                     ).build();
     }
 

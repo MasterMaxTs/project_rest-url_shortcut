@@ -27,10 +27,8 @@ public interface StatisticCrudRepository
      * @param urlId идентификатор ссылки
      */
     @Modifying
-    @Query(value = "update site_urls_statistics set total = "
-            + "(select total from site_urls_statistics where url_id = :urlId)"
-            + " + 1 "
-            + "where url_id = :urlId",
+    @Query(value = "update site_urls_statistics set total = total + 1 "
+                     + "where url_id = :urlId",
            nativeQuery = true)
     void increaseCounter(@Param("urlId") int urlId);
 

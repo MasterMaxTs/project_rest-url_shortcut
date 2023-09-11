@@ -2,17 +2,21 @@ package ru.job4j.urlshortcut.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import ru.job4j.urlshortcut.UrlShortcutApplication;
 import ru.job4j.urlshortcut.domain.Site;
 import ru.job4j.urlshortcut.domain.Statistic;
 import ru.job4j.urlshortcut.domain.Url;
 import ru.job4j.urlshortcut.handler.GlobalExceptionHandler;
+import ru.job4j.urlshortcut.mapper.StatisticConverter;
 import ru.job4j.urlshortcut.service.site.SiteService;
 import ru.job4j.urlshortcut.service.statistic.StatisticService;
 
@@ -29,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Класс используется для выполнения модульных тестов
  * контроллера Статистики
  */
-@WebMvcTest(controllers = StatisticController.class)
+@SpringBootTest(classes = UrlShortcutApplication.class)
 @ActiveProfiles(value = "test")
 class StatisticControllerTest {
 
@@ -61,6 +65,12 @@ class StatisticControllerTest {
     private SiteService siteService;
 
     /**
+     * Внедрение зависимости от StatisticConverter
+     */
+    @Autowired
+    private StatisticConverter converter;
+
+    /**
      * Список статистических данных сайта
      */
     private List<Statistic> statistics;
@@ -71,7 +81,7 @@ class StatisticControllerTest {
     @BeforeEach
     void whenSetUpThenInitObjects() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(
-                            new StatisticController(statisticService)
+                            new StatisticController(statisticService, converter)
                         ).setControllerAdvice(new GlobalExceptionHandler()
                         ).build();
         Statistic firstValue = new Statistic(new Url(DOMAIN_NAME));

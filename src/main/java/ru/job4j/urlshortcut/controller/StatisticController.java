@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.job4j.urlshortcut.domain.Statistic;
 import ru.job4j.urlshortcut.dto.request.RequestSiteDto;
-import ru.job4j.urlshortcut.dto.response.ResponseStatisticDto;
+import ru.job4j.urlshortcut.mapper.StatisticConverter;
 import ru.job4j.urlshortcut.service.statistic.StatisticService;
 
 import javax.validation.Valid;
@@ -29,6 +29,11 @@ public class StatisticController {
     private final StatisticService statisticService;
 
     /**
+     * Зависимость от StatisticConverter
+     */
+    private final StatisticConverter converter;
+
+    /**
      * Предоставляет список статистических данных по доменному имени сайта
      * @param siteDto объект RegistrationSiteDto на входе
      * @return объект ResponseEntity со статусом 200 и телом в виде списка
@@ -41,8 +46,7 @@ public class StatisticController {
         return ResponseEntity.ok().body(
                     statistics
                         .stream()
-                        .map(st -> new ResponseStatisticDto(
-                                st.getUrl().getUrl(), st.getTotal())
-                        ).collect(Collectors.toList()));
+                        .map(converter::convertToDto)
+                        .collect(Collectors.toList()));
     }
 }

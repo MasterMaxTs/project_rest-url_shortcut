@@ -1,5 +1,6 @@
 # job4j_url_shortcut
 #### Сервис коротких ссылок
+[![Packaging the App](https://github.com/MasterMaxTs/project_rest-url_shortcut/actions/workflows/packaging.yml/badge.svg)](https://github.com/MasterMaxTs/project_rest-url_shortcut/actions/workflows/packaging.yml)
 
 ### Это проект по разработке сервиса, заменяющего URL ссылки на короткие, доступного в браузере.
 #### Сервис работает через REST API.
