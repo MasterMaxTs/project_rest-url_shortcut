@@ -2,7 +2,26 @@
 #### Сервис коротких ссылок
 [![Packaging the App](https://github.com/MasterMaxTs/project_rest-url_shortcut/actions/workflows/packaging.yml/badge.svg)](https://github.com/MasterMaxTs/project_rest-url_shortcut/actions/workflows/packaging.yml)
 
-### Это проект по разработке сервиса, заменяющего URL ссылки на короткие, доступного в браузере.
+  ![](https://img.shields.io/badge/java-11-4AB197)&nbsp;&nbsp;&nbsp;<br>
+  ![](https://img.shields.io/badge/maven-3.6.3-4AB197)&nbsp;&nbsp;&nbsp;<br>
+  ![](https://img.shields.io/badge/maven--checkstyle--plugin-3.1.2-4AB197)&nbsp;&nbsp;&nbsp;
+  ![](https://img.shields.io/badge/maven--javadoc--plugin-3.2.0-4AB197)&nbsp;&nbsp;&nbsp;
+  ![](https://img.shields.io/badge/maven--war--plugin-3.4.0-4AB197)&nbsp;&nbsp;&nbsp;<br>
+  ![](https://img.shields.io/badge/spring--boot--starter--web-2.7.13-4AB197)&nbsp;&nbsp;&nbsp;
+  ![](https://img.shields.io/badge/spring--boot--starter--jpa-2.7.13-4AB197)&nbsp;&nbsp;&nbsp;
+  ![](https://img.shields.io/badge/spring--boot--starter--security-3.1.0-4AB197)&nbsp;&nbsp;&nbsp;
+  ![](https://img.shields.io/badge/spring--boot--starter--validation-2.7.13-4AB197)&nbsp;&nbsp;&nbsp;<br>
+  ![](https://img.shields.io/badge/lombok-1.18.28-4AB197)&nbsp;&nbsp;&nbsp;
+  ![](https://img.shields.io/badge/java--jwt-4.4.0-4AB197)&nbsp;&nbsp;&nbsp;
+  ![](https://img.shields.io/badge/modelmapper-3.1.1-4AB197)&nbsp;&nbsp;&nbsp;
+  ![](https://img.shields.io/badge/liquibase--core-4.22.0-4AB197)&nbsp;&nbsp;&nbsp;
+  ![](https://img.shields.io/badge/DBMS:_PostgreSQL-14.0-4AB197)&nbsp;&nbsp;&nbsp;<br>
+  ![](https://img.shields.io/badge/Test:_spring--boot--starter--test-2.7.13-4AB197)&nbsp;&nbsp;&nbsp;
+  ![](https://img.shields.io/badge/Test:_h2database-2.1.214-4AB197)&nbsp;&nbsp;&nbsp;<br><br>
+  ![](https://img.shields.io/badge/Package:-.war-4AB197)&nbsp;&nbsp;&nbsp;
+
+
+### Это проект по разработке сервиса, заменяющего URL ссылки на короткие.
 #### Сервис работает через REST API.
 
 ___
@@ -24,7 +43,7 @@ ___
 <br>
 2. <b>Авторизация.</b>
 
- - Авторизацию производится через JWT;
+ - Авторизация производится через JWT;
  - пользователь отправляет POST запрос с login и password и получает ключ KEY.
 
  - Этот ключ отправляется пользователем в запросе в блоке HEAD:
@@ -38,7 +57,7 @@ ___
 
    - Пример:
      - отправляем URL: https://job4j.ru/profile/exercise/106/task-view/532;
-     - получаем:ZRUfdD2 (ключ ZRUfD2 ассоциирован с URL).
+     - получаем преобразованную ссылку:ZRUfdD2 (ключ ZRUfD2 ассоциирован с URL).
 
  - Описание вызовов:
    - POST /convert с телом JSON объекта {url: "https://job4j.ru/profile/exercise/106/task-view/532"}:
@@ -77,10 +96,8 @@ ___
 - Java-JWT v.4.4.0
 - Liquibase-core v.4.22.0
 - СУБД: PostgreSQL v.14.0.
-
-
+<br><br>
 - Тестирование:
-  - Junit5
   - Spring-boot-starter-test v.2.7.13
   - БД: h2database v.2.1.214
 
