@@ -4,6 +4,8 @@
 
   ![](https://img.shields.io/badge/java-11-4AB197)&nbsp;&nbsp;&nbsp;<br>
   ![](https://img.shields.io/badge/maven-3.6.3-4AB197)&nbsp;&nbsp;&nbsp;<br>
+  ![](https://img.shields.io/badge/docker-24.0.6-4AB197)&nbsp;&nbsp;&nbsp;<br>
+  ![](https://img.shields.io/badge/docker--compose-1.28.6-4AB197)&nbsp;&nbsp;&nbsp;<br>
   ![](https://img.shields.io/badge/maven--checkstyle--plugin-3.1.2-4AB197)&nbsp;&nbsp;&nbsp;
   ![](https://img.shields.io/badge/maven--javadoc--plugin-3.2.0-4AB197)&nbsp;&nbsp;&nbsp;
   ![](https://img.shields.io/badge/maven--war--plugin-3.4.0-4AB197)&nbsp;&nbsp;&nbsp;<br>
@@ -115,6 +117,39 @@ ___
 
 ---
 ### Запуск проекта
+
+#### <ins>Развёртывание приложения с помощью Docker (ОС Linux):</ins>
+
+1. Проверить, установлен ли Docker:
+   - терминал<br>
+     ```docker --version```
+   - если не установлен, установить
+   
+
+2. Проверить, установлен ли Docker Compose:
+    - терминал<br>
+      ```docker-compose --version```
+    - если не установлен, установить
+   
+
+3. Скачать файлы проекта с github по ссылке и разархивировать в выбранную директорию проекта:<br>
+      [https://github.com/MasterMaxTs/project_rest-url_shortcut/archive](https://github.com/MasterMaxTs/project_rest-url_shortcut/archive/refs/heads/master.zip)
+
+
+4. Открыть терминал, перейти в директорию проекта:<br>
+   - Для <ins>первого</ins> развёртывания и запуска приложения выполнить последовательно команды:
+     - ```doсker-compose build```
+     - ```docker-compose up```
+
+   - Для <ins>последующего</ins> запуска приложения выполнять команду:
+       - ```docker-compose start```
+       - убедиться, что контейнеры были успешно запущены:
+
+![img.png](img/docker-compose-start-success.JPG)
+
+<br>
+    
+#### <ins>Запуск приложения локально:</ins>
 1. Установить СУБД PostgreSQL
 
 
@@ -138,6 +173,20 @@ ___
 
 ---
 ### Закрытие проекта
+
+#### <ins>Закрытие в Docker:</ins>
+- После <ins>первого</ins> запуска приложения в терминале выполнить:
+  - ```Ctrl + C```
+
+- После <ins>последующих</ins> запусков приложения в терминале выполнять команду:
+    - ```docker-compose stop```
+    - убедиться, что контейнеры были успешно остановлены:
+
+![img.png](img/docker-compose-stop-success.JPG)
+
+<br>
+
+#### <ins>Закрытие локально:</ins>
  - Закройте окно командной строки
 
 <br>
@@ -231,9 +280,20 @@ ___
  
     <br>
  - каждый генератор имеет свою собственную настройку на основе данных в файле
-конфигурации приложения <classpath: application-prod.properties>
+конфигурации приложения:<br>
+classpath: application-|profile name|.properties
 
 <br>
+
+ - <ins><b>Профили сборки проекта и файлы конфигурации приложения</b></ins>
+
+| Профиль               | Файл                                     |
+|:----------------------|:-----------------------------------------|
+|                       | resources/ application.properties        |
+| Докер (docker)        | resources/ application-docker.properties |
+| Продакшн (prod)       | resources/ application-prod.properties   |
+| Тестовый (test)       | resources/ application-test.properties   |
+
 
 ___
 ### Контакты
