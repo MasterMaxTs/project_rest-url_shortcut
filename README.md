@@ -90,13 +90,17 @@ ___
 ### Стек технологий
 
 - Java 11
+- Maven 3.6.3
 - Spring-boot-starter-web v.2.7.13.
 - Spring-boot-starter-data-jpa v.2.7.13
 - Spring-boot-starter-security v.3.1.0
 - Spring-boot-starter-validation v.2.7.13
-- Lombok v.1.18.28.
+- Lombok v.1.18.28
 - Java-JWT v.4.4.0
+- ModelMapper v.3.1.1
 - Liquibase-core v.4.22.0
+- Docker v.24.0.6
+- Docker Compose v.1.28.6
 - СУБД: PostgreSQL v.14.0.
 <br><br>
 - Тестирование:
@@ -163,7 +167,7 @@ ___
 
 4. Перейти в директорию проекта, открыть командную строку.</br>
  - Для <ins>первого</ins> запуска приложения выполнить последовательно команды:
-     - ```mvn install```
+     - ```mvn package -Pprod -Dmaven.test.skip=true```
      - ```java -jar target/urlshortcut-1.0.war```
 
  - Для <ins>последующего</ins> запуска приложения выполнять команду:
@@ -297,5 +301,7 @@ classpath: application-|profile name|.properties
 
 ___
 ### Контакты
-* email: max86ts@gmail.com
-* telegram: matsurkanov
+* Email: java.dev-maxim.tsurkanov@yandex.ru
+* Skype: https://join.skype.com/invite/ODADx0IJ3BBu
+* VK: https://m.vk.com/id349328153
+* Telegram: matsurkanov
